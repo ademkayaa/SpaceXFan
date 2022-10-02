@@ -2,7 +2,16 @@
 //  UIButton+Ext.swift
 //  SpaceXFan
 //
-//  Created by Adem Kaya (employee ID: a84252243) on 2022/10/1.
+//  Created by Adem Kaya
 //
 
-import Foundation
+import UIKit
+
+extension UIButton {
+    func forceImageToRightSide() {
+        let newTransform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        transform = newTransform
+        titleLabel?.transform = newTransform
+        imageView?.transform = newTransform
+    }
+}
