@@ -26,6 +26,10 @@ struct Rocket {
 
     let imagesUrl: [String]
 
+    let flight_number: Int
+    let date_utc: String
+    let upcoming: Bool
+
     // Default init
     init() {
         self.name = ""
@@ -44,6 +48,10 @@ struct Rocket {
         self.mass = 0
 
         self.imagesUrl = []
+
+        self.flight_number = 0
+        self.date_utc = ""
+        self.upcoming = false
     }
 
     init(with data: JSON) {
@@ -64,5 +72,9 @@ struct Rocket {
         self.mass = data["mass"]["kg"].intValue
 
         self.imagesUrl = data["flickr_images"].arrayValue.map({ $0.stringValue })
+
+        self.flight_number = data["flight_number"].intValue
+        self.date_utc = data["date_utc"].stringValue
+        self.upcoming = data["upcoming"].boolValue
     }
 }

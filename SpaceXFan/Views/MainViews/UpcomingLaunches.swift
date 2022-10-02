@@ -11,7 +11,8 @@ final class UpcomingLaunches: UIViewController {
 
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
-        table.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cell)
+        table.register(CardUIViewTableCell.self, forCellReuseIdentifier: CardUIViewTableCell.identifier)
+        table.separatorStyle = .none
         return table
     }()
 
@@ -23,11 +24,20 @@ final class UpcomingLaunches: UIViewController {
         tableView.dataSource = self
 
         configureNavigationBar(with: "Upcoming Launches")
+        loadTableViewCells()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
+    }
+
+    private func loadTableViewCells() {
+        UpcomingLaunchesViewModel.shared.fetchItems(with: Constants.baseUrl + Constants.fetchByUpcoming) { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
     }
 }
 
@@ -38,21 +48,18 @@ extension UpcomingLaunches: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cell, for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CardUIViewTableCell.identifier, for: indexPath) as? CardUIViewTableCell else {
+            return UITableViewCell()
+        }
 
-        cell.textLabel?.text = UpcomingLaunchesViewModel.shared.getItem(at: indexPath.row)
-        cell.accessoryType = .disclosureIndicator
+        cell.configure(with: UpcomingLaunchesViewModel.shared.getItem(at: indexPath.row), isFavoriteHidden: true)
         cell.selectionStyle = .none
         return cell
     }
 
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let vc = CountriesViewController()
-//        vc.region = ContinentsViewModel.shared.getContinent(at: indexPath.row)
-//        navigationController?.pushViewController(vc, animated: true)
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return CGFloat(Constants.cellHight)
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = DetailsView()
+        vc.rocket = UpcomingLaunchesViewModel.shared.getItem(at: indexPath.row)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }

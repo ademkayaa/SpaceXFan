@@ -4,14 +4,14 @@
 //
 //  Created by Adem Kaya
 //
-
 import UIKit
 
 final class AllSpaceXRockets: UIViewController {
 
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
-        table.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cell)
+        table.register(CardUIViewTableCell.self, forCellReuseIdentifier: CardUIViewTableCell.identifier)
+        table.separatorStyle = .none
         return table
     }()
 
@@ -47,10 +47,12 @@ extension AllSpaceXRockets: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cell, for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CardUIViewTableCell.identifier, for: indexPath) as? CardUIViewTableCell else {
+            return UITableViewCell()
+        }
 
-        cell.textLabel?.text = AllSpaceXRocketsViewModel.shared.getItem(at: indexPath.row).name
-        cell.accessoryType = .disclosureIndicator
+        cell.configure(with: AllSpaceXRocketsViewModel.shared.getItem(at: indexPath.row), isFavoriteHidden: false)
+//        cell.textLabel?.text = AllSpaceXRocketsViewModel.shared.getItem(at: indexPath.row).name
         cell.selectionStyle = .none
         return cell
     }
@@ -67,4 +69,3 @@ extension AllSpaceXRockets: UITableViewDelegate, UITableViewDataSource {
 //        return CGFloat(Constants.cellHight)
 //    }
 }
-

@@ -28,6 +28,7 @@
 		8428313D28E8C091004AAD76 /* FavoriteRockets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428313C28E8C091004AAD76 /* FavoriteRockets.swift */; };
 		8428313F28E8C0B2004AAD76 /* UpcomingLaunches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428313E28E8C0B2004AAD76 /* UpcomingLaunches.swift */; };
 		8428314128E8C0DB004AAD76 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428314028E8C0DB004AAD76 /* TabBarViewController.swift */; };
+		8428314328E9F027004AAD76 /* CardUIViewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428314228E9F027004AAD76 /* CardUIViewTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		8428313C28E8C091004AAD76 /* FavoriteRockets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRockets.swift; sourceTree = "<group>"; };
 		8428313E28E8C0B2004AAD76 /* UpcomingLaunches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingLaunches.swift; sourceTree = "<group>"; };
 		8428314028E8C0DB004AAD76 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		8428314228E9F027004AAD76 /* CardUIViewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardUIViewTableCell.swift; sourceTree = "<group>"; };
 		8F31E6ED44DDB336194B312A /* Pods-SpaceXFan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpaceXFan.release.xcconfig"; path = "Target Support Files/Pods-SpaceXFan/Pods-SpaceXFan.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,6 +176,7 @@
 			children = (
 				8428313028E8BF6A004AAD76 /* DetailsLineDefinition.swift */,
 				8428312F28E8BF54004AAD76 /* Subviews */,
+				8428314228E9F027004AAD76 /* CardUIViewTableCell.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				8428310928E8A7C2004AAD76 /* SceneDelegate.swift in Sources */,
 				8428313D28E8C091004AAD76 /* FavoriteRockets.swift in Sources */,
 				8428312028E8A985004AAD76 /* Rocket.swift in Sources */,
+				8428314328E9F027004AAD76 /* CardUIViewTableCell.swift in Sources */,
 				8428312228E8BE1B004AAD76 /* AllSpaceXRocketsViewModel.swift in Sources */,
 				8428313928E8C049004AAD76 /* DetailHeaderView.swift in Sources */,
 				8428313F28E8C0B2004AAD76 /* UpcomingLaunches.swift in Sources */,

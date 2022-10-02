@@ -27,11 +27,18 @@ class DetailHeaderView: UIView {
     func configure(with urls: [String]) {
         var imageSource = [KingfisherSource]()
 
-        for url in urls {
-            imageSource.append(KingfisherSource(urlString: url)!)
-            print("Urls \(url)")
+        if !urls.isEmpty {
+            for url in urls {
+                imageSource.append(KingfisherSource(urlString: url)!)
+                print("Urls \(url)")
+            }
+            slideshow.setImageInputs(imageSource)
+        } else {
+            slideshow.setImageInputs([
+                ImageSource(image: UIImage(named: "Rocket")!)])
         }
-        slideshow.setImageInputs(imageSource)
+
+
     }
 
     override func layoutSubviews() {
@@ -43,4 +50,3 @@ class DetailHeaderView: UIView {
         fatalError()
     }
 }
-

@@ -17,6 +17,18 @@ final class DetailsView: UIViewController {
         return table
     }()
 
+    lazy var favorite: UIButton = {
+        let view = UIButton(type: .custom)
+
+        view.setImage(UIImage(systemName: "heart"), for: .normal)
+        view.setImage(UIImage(systemName: "heart.fill"), for: .selected)
+        view.addTarget(self, action: #selector(tapHeart), for: .touchUpInside)
+        view.backgroundColor = .white
+        view.tintColor = .red
+        view.layer.cornerRadius = 5
+        return view
+    }()
+
     var rocket: Rocket?
     private var headerView: DetailHeaderView?
 
@@ -27,7 +39,10 @@ final class DetailsView: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
+
         configureNavigationBar(with: rocket?.name ?? "Details")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: favorite)
+
         configureHeaderUIView()
     }
 
@@ -43,6 +58,10 @@ final class DetailsView: UIViewController {
                                                 height: 300))
         headerView?.configure(with: rocket?.imagesUrl ?? [])
         tableView.tableHeaderView = headerView
+    }
+
+    @objc func tapHeart(_ sender: UIButton) {
+        sender.isSelected.toggle()
     }
 }
 
@@ -73,4 +92,5 @@ extension DetailsView: UITableViewDelegate, UITableViewDataSource {
 //        return UITableView.automaticDimension
 //    }
 }
+
 

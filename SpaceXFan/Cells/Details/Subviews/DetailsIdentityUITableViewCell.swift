@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class DetailsIdentityUITableViewCell: UITableViewCell {
 
@@ -14,7 +15,6 @@ class DetailsIdentityUITableViewCell: UITableViewCell {
         view.font = .systemFont(ofSize: 18, weight: .regular)
         view.textAlignment = .left
         view.numberOfLines = 0
-        view.text = "descriptionLabel,descriptionLabel,descriptionLabel,descriptionLabel,descriptionLabel,descriptionLabel,descriptionLabel,descriptionLabel,descriptionLabel,descriptionLabel,descriptionLabel,descriptionLabel,descriptionLabel,descriptionLabel,descriptionLabel,v,v,descriptionLabel,descriptionLabel,descriptionLabel"
         return view
     }()
 
@@ -60,49 +60,71 @@ class DetailsIdentityUITableViewCell: UITableViewCell {
 
         stackView.addArrangedSubview(descriptionLabel)
 
-        let type = getLine()
-        type.titleLabel.text = "Type"
-        type.descriptionLabel.text = rocket.type
+        if rocket.upcoming {
+            setUpcomingRockets(with: rocket)
+        } else {
+            setRockets(with: rocket)
+        }
+    }
 
+    private func setUpcomingRockets(with rocket: Rocket) {
+        let active = getLine()
+        active.titleLabel.text = "Name"
+        active.descriptionLabel.text = String(rocket.name)
+
+        let flight_number = getLine()
+        flight_number.titleLabel.text = "Flight Number"
+        flight_number.descriptionLabel.text = String(rocket.flight_number)
+
+        let date_utc = getLine()
+        date_utc.titleLabel.text = "Date"
+        date_utc.descriptionLabel.text = String(rocket.date_utc)
+
+        let upcoming = getLine()
+        upcoming.titleLabel.text = "Upcoming"
+        upcoming.descriptionLabel.text = String(rocket.upcoming)
+    }
+
+    private func setRockets(with rocket: Rocket) {
         let active = getLine()
         active.titleLabel.text = "Active"
-        active.descriptionLabel.text = ""
+        active.descriptionLabel.text = String(rocket.active)
 
         let boosters = getLine()
         boosters.titleLabel.text = "Boosters"
-        boosters.descriptionLabel.text = ""
+        boosters.descriptionLabel.text = String(rocket.boosters)
 
         let cost_per_launch = getLine()
-        cost_per_launch.titleLabel.text = ""
-        cost_per_launch.descriptionLabel.text = ""
+        cost_per_launch.titleLabel.text = "Cost Per Launch"
+        cost_per_launch.descriptionLabel.text = String(rocket.cost_per_launch)
 
         let success_rate_pct = getLine()
-        success_rate_pct.titleLabel.text = ""
-        success_rate_pct.descriptionLabel.text = ""
+        success_rate_pct.titleLabel.text = "Success Rate Pct"
+        success_rate_pct.descriptionLabel.text = String(rocket.success_rate_pct)
 
         let first_flight = getLine()
-        first_flight.titleLabel.text = ""
-        first_flight.descriptionLabel.text = ""
+        first_flight.titleLabel.text = "First Flight"
+        first_flight.descriptionLabel.text = rocket.first_flight
 
         let country = getLine()
-        country.titleLabel.text = ""
-        country.descriptionLabel.text = ""
+        country.titleLabel.text = "Country"
+        country.descriptionLabel.text = rocket.country
 
         let company = getLine()
-        company.titleLabel.text = ""
-        company.descriptionLabel.text = ""
+        company.titleLabel.text = "Company"
+        company.descriptionLabel.text = rocket.company
 
         let height = getLine()
-        height.titleLabel.text = ""
-        height.descriptionLabel.text = ""
+        height.titleLabel.text = "Height"
+        height.descriptionLabel.text = String(rocket.height)
 
         let diameter = getLine()
-        diameter.titleLabel.text = ""
-        diameter.descriptionLabel.text = ""
+        diameter.titleLabel.text = "Diameter"
+        diameter.descriptionLabel.text = String(rocket.diameter)
 
         let mass = getLine()
-        mass.titleLabel.text = ""
-        mass.descriptionLabel.text = ""
+        mass.titleLabel.text = "Mass"
+        mass.descriptionLabel.text = String(rocket.mass)
     }
 
     private func getLine() -> DetailsLineDefinition {
