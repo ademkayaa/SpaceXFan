@@ -23,8 +23,6 @@ class FBAuth {
             } else {
                 guard let userId = res?.user.uid else { return }
                 self?.currentUserId = userId
-                //Login check
-                UserDefaults.standard.set(true, forKey: "status")
                 self?.isSignedIn = true
                 FBFireStore.shared.geData(with: userId) { result in
                     switch(result) {
@@ -53,8 +51,6 @@ class FBAuth {
                 return
             } else {
                 self?.isSignedIn = true
-                //For Logout check
-                UserDefaults.standard.set(true, forKey: "status")
                 guard let userId = res?.user.uid else { return }
                 self?.currentUserId = userId
                 completion(.success(true))
@@ -65,7 +61,6 @@ class FBAuth {
     func signOut(completion: @escaping (Result<Bool, Error>) -> Void) {
         do {
             try Auth.auth().signOut()
-            UserDefaults.standard.set(false, forKey: "status")
             isSignedIn = false
             FBFireStore.shared.favorite = []
             completion(.success(true))

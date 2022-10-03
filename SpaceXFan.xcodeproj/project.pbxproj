@@ -19,7 +19,6 @@
 		8428312628E8BE6A004AAD76 /* UpcomingLaunchesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428312528E8BE6A004AAD76 /* UpcomingLaunchesViewModel.swift */; };
 		8428312928E8BEC1004AAD76 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428312828E8BEC1004AAD76 /* Constants.swift */; };
 		8428312B28E8BEE6004AAD76 /* UITableViewController+ConfigureNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428312A28E8BEE6004AAD76 /* UITableViewController+ConfigureNavigationBar.swift */; };
-		8428312D28E8BF08004AAD76 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428312C28E8BF08004AAD76 /* UIButton+Ext.swift */; };
 		8428313128E8BF6A004AAD76 /* DetailsLineDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428313028E8BF6A004AAD76 /* DetailsLineDefinition.swift */; };
 		8428313328E8BFAE004AAD76 /* DetailsIdentityUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428313228E8BFAE004AAD76 /* DetailsIdentityUITableViewCell.swift */; };
 		8428313728E8C026004AAD76 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428313628E8C026004AAD76 /* DetailView.swift */; };
@@ -51,7 +50,6 @@
 		8428312528E8BE6A004AAD76 /* UpcomingLaunchesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingLaunchesViewModel.swift; sourceTree = "<group>"; };
 		8428312828E8BEC1004AAD76 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8428312A28E8BEE6004AAD76 /* UITableViewController+ConfigureNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewController+ConfigureNavigationBar.swift"; sourceTree = "<group>"; };
-		8428312C28E8BF08004AAD76 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
 		8428313028E8BF6A004AAD76 /* DetailsLineDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsLineDefinition.swift; sourceTree = "<group>"; };
 		8428313228E8BFAE004AAD76 /* DetailsIdentityUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsIdentityUITableViewCell.swift; sourceTree = "<group>"; };
 		8428313628E8C026004AAD76 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
@@ -177,7 +175,6 @@
 			isa = PBXGroup;
 			children = (
 				8428312A28E8BEE6004AAD76 /* UITableViewController+ConfigureNavigationBar.swift */,
-				8428312C28E8BF08004AAD76 /* UIButton+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -371,7 +368,6 @@
 				8428312428E8BE4E004AAD76 /* FavoriteRocketsViewModel.swift in Sources */,
 				8428313728E8C026004AAD76 /* DetailView.swift in Sources */,
 				8428314928EAC45E004AAD76 /* SignInViewController.swift in Sources */,
-				8428312D28E8BF08004AAD76 /* UIButton+Ext.swift in Sources */,
 				8428310928E8A7C2004AAD76 /* SceneDelegate.swift in Sources */,
 				8428313D28E8C091004AAD76 /* FavoriteRockets.swift in Sources */,
 				8428312028E8A985004AAD76 /* Rocket.swift in Sources */,
