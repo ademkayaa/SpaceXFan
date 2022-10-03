@@ -4,7 +4,6 @@
 
 1- Clone or Download the Project
    - Firstly run "pod install" command 
-   - Build from XCode
 
 
 #############--------------- About Project------------------------############
