@@ -92,5 +92,3 @@ extension DetailsView: UITableViewDelegate, UITableViewDataSource {
 //        return UITableView.automaticDimension
 //    }
 }
-
-

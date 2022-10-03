@@ -15,6 +15,16 @@ final class AllSpaceXRockets: UIViewController {
         return table
     }()
 
+    lazy var userLoginButton: UIButton = {
+        let view = UIButton(type: .custom)
+        view.setTitle("Log In", for: .normal)
+        view.setTitle("Log Out", for: .selected)
+        view.addTarget(self, action: #selector(tapLogin), for: .touchUpInside)
+        view.titleLabel?.textColor = .label
+        view.titleLabel?.numberOfLines = 0
+        return view
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,8 +32,14 @@ final class AllSpaceXRockets: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
+
         configureNavigationBar(with: "All SpaceX Rockets")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: userLoginButton)
         loadTableViewCells()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+
     }
 
     override func viewDidLayoutSubviews() {
@@ -35,6 +51,23 @@ final class AllSpaceXRockets: UIViewController {
         AllSpaceXRocketsViewModel.shared.fetchItems(with: Constants.baseUrl + Constants.fetchByRockets) { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
+            }
+        }
+    }
+
+    @objc func tapLogin(_ sender: UIButton) {
+        sender.isSelected.toggle()
+
+        if sender.isSelected {
+            navigationController?.pushViewController(SignInViewController(), animated: true)
+        } else {
+            FBAuth.shared.signOut() { result in
+                switch(result) {
+                case.success(_):
+                    print("signOut success")
+                case.failure(_):
+                    print("signOut fail")
+                }
             }
         }
     }
@@ -50,9 +83,8 @@ extension AllSpaceXRockets: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CardUIViewTableCell.identifier, for: indexPath) as? CardUIViewTableCell else {
             return UITableViewCell()
         }
-
+        cell.delegate = self
         cell.configure(with: AllSpaceXRocketsViewModel.shared.getItem(at: indexPath.row), isFavoriteHidden: false)
-//        cell.textLabel?.text = AllSpaceXRocketsViewModel.shared.getItem(at: indexPath.row).name
         cell.selectionStyle = .none
         return cell
     }
@@ -61,11 +93,27 @@ extension AllSpaceXRockets: UITableViewDelegate, UITableViewDataSource {
         let vc = DetailsView()
 
         vc.rocket = AllSpaceXRocketsViewModel.shared.getItem(at: indexPath.row)
-//        vc.region = ContinentsViewModel.shared.getContinent(at: indexPath.row)
         navigationController?.pushViewController(vc, animated: true)
     }
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return CGFloat(Constants.cellHight)
-//    }
+}
+
+
+extension AllSpaceXRockets: CardUIViewDelegate {
+    func tapHeart(_ sender: UIButton, data: String) {
+
+        sender.isSelected.toggle()
+
+        if sender.isSelected {
+
+            if !FBAuth.shared.isSignedIn {
+                navigationController?.pushViewController(SignInViewController(), animated: true)
+                sender.isSelected.toggle()
+            } else {
+                FBFireStore.shared.setData(with: data, for: FBAuth.shared.currentUserId)
+            }
+
+        } else {
+            FBFireStore.shared.deleteData(with: data, for: FBAuth.shared.currentUserId)
+        }
+    }
 }

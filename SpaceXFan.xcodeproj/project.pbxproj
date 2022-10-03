@@ -29,6 +29,12 @@
 		8428313F28E8C0B2004AAD76 /* UpcomingLaunches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428313E28E8C0B2004AAD76 /* UpcomingLaunches.swift */; };
 		8428314128E8C0DB004AAD76 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428314028E8C0DB004AAD76 /* TabBarViewController.swift */; };
 		8428314328E9F027004AAD76 /* CardUIViewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428314228E9F027004AAD76 /* CardUIViewTableCell.swift */; };
+		8428314528E9F55E004AAD76 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8428314428E9F55D004AAD76 /* GoogleService-Info.plist */; };
+		8428314928EAC45E004AAD76 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428314828EAC45E004AAD76 /* SignInViewController.swift */; };
+		8428314B28EAC4BF004AAD76 /* FBAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428314A28EAC4BF004AAD76 /* FBAuth.swift */; };
+		8428314D28EAC4E3004AAD76 /* FBFireStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428314C28EAC4E3004AAD76 /* FBFireStore.swift */; };
+		8428314F28EAC764004AAD76 /* FavoriteRocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428314E28EAC764004AAD76 /* FavoriteRocket.swift */; };
+		8428315128EAFE35004AAD76 /* JsonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428315028EAFE35004AAD76 /* JsonUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +63,12 @@
 		8428313E28E8C0B2004AAD76 /* UpcomingLaunches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingLaunches.swift; sourceTree = "<group>"; };
 		8428314028E8C0DB004AAD76 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		8428314228E9F027004AAD76 /* CardUIViewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardUIViewTableCell.swift; sourceTree = "<group>"; };
+		8428314428E9F55D004AAD76 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8428314828EAC45E004AAD76 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		8428314A28EAC4BF004AAD76 /* FBAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBAuth.swift; sourceTree = "<group>"; };
+		8428314C28EAC4E3004AAD76 /* FBFireStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBFireStore.swift; sourceTree = "<group>"; };
+		8428314E28EAC764004AAD76 /* FavoriteRocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRocket.swift; sourceTree = "<group>"; };
+		8428315028EAFE35004AAD76 /* JsonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonUtils.swift; sourceTree = "<group>"; };
 		8F31E6ED44DDB336194B312A /* Pods-SpaceXFan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpaceXFan.release.xcconfig"; path = "Target Support Files/Pods-SpaceXFan/Pods-SpaceXFan.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,6 +114,7 @@
 		8428310528E8A7C2004AAD76 /* SpaceXFan */ = {
 			isa = PBXGroup;
 			children = (
+				8428314628EAC416004AAD76 /* Managers */,
 				8428311E28E8A93A004AAD76 /* Utilities */,
 				8428311D28E8A910004AAD76 /* ViewModels */,
 				8428311C28E8A8FC004AAD76 /* Views */,
@@ -113,6 +126,7 @@
 				8428310F28E8A7C4004AAD76 /* Assets.xcassets */,
 				8428311128E8A7C4004AAD76 /* LaunchScreen.storyboard */,
 				8428311428E8A7C4004AAD76 /* Info.plist */,
+				8428314428E9F55D004AAD76 /* GoogleService-Info.plist */,
 			);
 			path = SpaceXFan;
 			sourceTree = "<group>";
@@ -121,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				8428311F28E8A985004AAD76 /* Rocket.swift */,
+				8428314E28EAC764004AAD76 /* FavoriteRocket.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -136,6 +151,7 @@
 		8428311C28E8A8FC004AAD76 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8428314728EAC43C004AAD76 /* Auth */,
 				8428313528E8C00B004AAD76 /* MainViews */,
 				8428313428E8BFFC004AAD76 /* Subviews */,
 				8428314028E8C0DB004AAD76 /* TabBarViewController.swift */,
@@ -158,6 +174,7 @@
 			children = (
 				8428312728E8BE9E004AAD76 /* Extensions */,
 				8428312828E8BEC1004AAD76 /* Constants.swift */,
+				8428315028EAFE35004AAD76 /* JsonUtils.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -206,6 +223,23 @@
 				8428313E28E8C0B2004AAD76 /* UpcomingLaunches.swift */,
 			);
 			path = MainViews;
+			sourceTree = "<group>";
+		};
+		8428314628EAC416004AAD76 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				8428314A28EAC4BF004AAD76 /* FBAuth.swift */,
+				8428314C28EAC4E3004AAD76 /* FBFireStore.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		8428314728EAC43C004AAD76 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				8428314828EAC45E004AAD76 /* SignInViewController.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		919280AACB820BBA3FED467E /* Frameworks */ = {
@@ -277,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8428311328E8A7C4004AAD76 /* LaunchScreen.storyboard in Resources */,
+				8428314528E9F55E004AAD76 /* GoogleService-Info.plist in Resources */,
 				8428311028E8A7C4004AAD76 /* Assets.xcassets in Resources */,
 				8428310E28E8A7C2004AAD76 /* Main.storyboard in Resources */,
 			);
@@ -334,19 +369,24 @@
 				8428310728E8A7C2004AAD76 /* AppDelegate.swift in Sources */,
 				8428312B28E8BEE6004AAD76 /* UITableViewController+ConfigureNavigationBar.swift in Sources */,
 				8428313B28E8C065004AAD76 /* AllSpaceXRockets.swift in Sources */,
+				8428315128EAFE35004AAD76 /* JsonUtils.swift in Sources */,
+				8428314D28EAC4E3004AAD76 /* FBFireStore.swift in Sources */,
 				8428314128E8C0DB004AAD76 /* TabBarViewController.swift in Sources */,
 				8428313128E8BF6A004AAD76 /* DetailsLineDefinition.swift in Sources */,
 				8428313328E8BFAE004AAD76 /* DetailsIdentityUITableViewCell.swift in Sources */,
 				8428312628E8BE6A004AAD76 /* UpcomingLaunchesViewModel.swift in Sources */,
 				8428312428E8BE4E004AAD76 /* FavoriteRocketsViewModel.swift in Sources */,
 				8428313728E8C026004AAD76 /* DetailView.swift in Sources */,
+				8428314928EAC45E004AAD76 /* SignInViewController.swift in Sources */,
 				8428312D28E8BF08004AAD76 /* UIButton+Ext.swift in Sources */,
 				8428310928E8A7C2004AAD76 /* SceneDelegate.swift in Sources */,
+				8428314F28EAC764004AAD76 /* FavoriteRocket.swift in Sources */,
 				8428313D28E8C091004AAD76 /* FavoriteRockets.swift in Sources */,
 				8428312028E8A985004AAD76 /* Rocket.swift in Sources */,
 				8428314328E9F027004AAD76 /* CardUIViewTableCell.swift in Sources */,
 				8428312228E8BE1B004AAD76 /* AllSpaceXRocketsViewModel.swift in Sources */,
 				8428313928E8C049004AAD76 /* DetailHeaderView.swift in Sources */,
+				8428314B28EAC4BF004AAD76 /* FBAuth.swift in Sources */,
 				8428313F28E8C0B2004AAD76 /* UpcomingLaunches.swift in Sources */,
 				8428312928E8BEC1004AAD76 /* Constants.swift in Sources */,
 			);

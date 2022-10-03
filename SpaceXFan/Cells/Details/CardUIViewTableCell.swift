@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol CardUIViewDelegate: AnyObject {
+    func tapHeart(_ sender: UIButton, data: String)
+}
+
 class CardUIViewTableCell: UITableViewCell {
 
     lazy var posterImage: UIImageView = {
@@ -46,6 +50,7 @@ class CardUIViewTableCell: UITableViewCell {
     }()
 
     static let identifier = "CardUIViewTableCell"
+    weak var delegate: CardUIViewDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -103,6 +108,6 @@ class CardUIViewTableCell: UITableViewCell {
     }
 
     @objc func tapHeart(_ sender: UIButton) {
-        sender.isSelected.toggle()
+        delegate?.tapHeart(sender, data: titleLabel.text!)
     }
 }

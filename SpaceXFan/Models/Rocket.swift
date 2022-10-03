@@ -77,4 +77,10 @@ struct Rocket {
         self.date_utc = data["date_utc"].stringValue
         self.upcoming = data["upcoming"].boolValue
     }
+
+    var toDictionary: [String: Any] {
+        return [
+            "name": name
+        ]
+    }
 }
