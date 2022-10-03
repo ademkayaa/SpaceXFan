@@ -23,12 +23,17 @@ class FBAuth {
             } else {
                 guard let userId = res?.user.uid else { return }
                 self?.currentUserId = userId
+                //Login check
                 UserDefaults.standard.set(true, forKey: "status")
                 self?.isSignedIn = true
                 FBFireStore.shared.geData(with: userId) { result in
                     switch(result) {
                     case.success(_):
                         print("getDocument success")
+                        // I used NotificationCenter for changes after login
+                        NotificationCenter.default.post(name: Notification.Name("UserLoggedIn"), object: nil)
+                        NotificationCenter.default.post(name: Notification.Name("FavoriteTab"), object: nil)
+                        NotificationCenter.default.post(name: Notification.Name("refreshSignInButton"), object: nil)
                     case.failure(_):
                         print("getDocument fail")
                     }
@@ -48,6 +53,7 @@ class FBAuth {
                 return
             } else {
                 self?.isSignedIn = true
+                //For Logout check
                 UserDefaults.standard.set(true, forKey: "status")
                 guard let userId = res?.user.uid else { return }
                 self?.currentUserId = userId
@@ -61,6 +67,7 @@ class FBAuth {
             try Auth.auth().signOut()
             UserDefaults.standard.set(false, forKey: "status")
             isSignedIn = false
+            FBFireStore.shared.favorite = []
             completion(.success(true))
         } catch {
             completion(.failure(NetworkError.fail))

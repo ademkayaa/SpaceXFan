@@ -4,7 +4,6 @@
 //
 //  Created by Adem Kaya
 //
-
 import UIKit
 
 final class DetailsView: UIViewController {
@@ -16,6 +15,7 @@ final class DetailsView: UIViewController {
         table.estimatedRowHeight = 600
         return table
     }()
+
 
     lazy var favorite: UIButton = {
         let view = UIButton(type: .custom)
@@ -30,6 +30,8 @@ final class DetailsView: UIViewController {
     }()
 
     var rocket: Rocket?
+    var isFavoriteHidden: Bool = false
+    var isFavorite: Bool = false
     private var headerView: DetailHeaderView?
 
     override func viewDidLoad() {
@@ -40,10 +42,16 @@ final class DetailsView: UIViewController {
         tableView.dataSource = self
 
 
+
         configureNavigationBar(with: rocket?.name ?? "Details")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: favorite)
+
+        if !isFavoriteHidden {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: favorite)
+        }
 
         configureHeaderUIView()
+
+        favorite.isSelected = isFavorite
     }
 
     override func viewDidLayoutSubviews() {
@@ -62,6 +70,18 @@ final class DetailsView: UIViewController {
 
     @objc func tapHeart(_ sender: UIButton) {
         sender.isSelected.toggle()
+
+        if sender.isSelected {
+            if !FBAuth.shared.isSignedIn {
+                navigationController?.pushViewController(SignInViewController(), animated: true)
+                sender.isSelected.toggle()
+            } else {
+                FBFireStore.shared.setData(with: rocket?.name ?? "", for: FBAuth.shared.currentUserId)
+            }
+
+        } else {
+            FBFireStore.shared.deleteData(with: rocket?.name ?? "", for: FBAuth.shared.currentUserId)
+        }
     }
 }
 
@@ -81,14 +101,4 @@ extension DetailsView: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         return cell
     }
-
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let vc = CountriesViewController()
-//        vc.region = ContinentsViewModel.shared.getContinent(at: indexPath.row)
-//        navigationController?.pushViewController(vc, animated: true)
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
 }

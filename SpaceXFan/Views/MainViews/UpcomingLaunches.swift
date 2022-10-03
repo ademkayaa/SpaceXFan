@@ -60,6 +60,8 @@ extension UpcomingLaunches: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = DetailsView()
         vc.rocket = UpcomingLaunchesViewModel.shared.getItem(at: indexPath.row)
+        vc.isFavoriteHidden = true
         navigationController?.pushViewController(vc, animated: true)
     }
 }
+

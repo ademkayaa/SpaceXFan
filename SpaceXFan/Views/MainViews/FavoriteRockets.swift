@@ -11,7 +11,8 @@ final class FavoriteRockets: UIViewController {
 
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
-        table.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cell)
+        table.register(CardUIViewTableCell.self, forCellReuseIdentifier: CardUIViewTableCell.identifier)
+        table.separatorStyle = .none
         return table
     }()
 
@@ -22,12 +23,50 @@ final class FavoriteRockets: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
+
         configureNavigationBar(with: "Favorite Rockets")
+        loadTableViewCells()
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refreshFavorites),
+                                               name: Notification.Name("FavoriteTab"),
+                                               object: nil)
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
+    }
+
+    private func checkIfsignIn() {
+
+        if !FBAuth.shared.isSignedIn {
+            navigationController?.pushViewController(SignInViewController(), animated: true)
+        }
+    }
+
+    private func loadTableViewCells() {
+        FavoriteRocketsViewModel.shared.fetchItems(with: Constants.baseUrl + Constants.fetchByRockets) { [weak self] in
+            DispatchQueue.main.async {
+                FavoriteRocketsViewModel.shared.prepareFavorite()
+                self?.tableView.reloadData()
+            }
+        }
+    }
+
+    @objc func refreshFavorites() {
+        FavoriteRocketsViewModel.shared.prepareFavorite()
+        tableView.reloadData()
+        print("reload")
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        checkIfsignIn()
+
+        FavoriteRocketsViewModel.shared.prepareFavorite()
+        tableView.reloadData()
     }
 }
 
@@ -38,22 +77,56 @@ extension FavoriteRockets: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cell, for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CardUIViewTableCell.identifier, for: indexPath) as? CardUIViewTableCell else {
+            return UITableViewCell()
+        }
+        cell.delegate = self
 
-        cell.textLabel?.text = FavoriteRocketsViewModel.shared.getItem(at: indexPath.row)
-        cell.accessoryType = .disclosureIndicator
+        let item = FavoriteRocketsViewModel.shared.getItem(at: indexPath.row)
+        cell.favorite.isSelected = true
+
+        cell.configure(with: item, isFavoriteHidden: false)
         cell.selectionStyle = .none
         return cell
     }
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let vc = CountriesViewController()
-//        vc.region = ContinentsViewModel.shared.getContinent(at: indexPath.row)
-//        navigationController?.pushViewController(vc, animated: true)
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return CGFloat(Constants.cellHight)
-//    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let vc = DetailsView()
+
+        let item = FavoriteRocketsViewModel.shared.getItem(at: indexPath.row)
+        vc.rocket = item
+
+        if let count = FBFireStore.shared.favorite?.filter({ $0 == item.name }).count {
+            let isFavorite = count >= 1 ? true : false
+            vc.isFavorite = isFavorite
+        }
+
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
+
+
+extension FavoriteRockets: CardUIViewDelegate {
+    func tapHeart(_ sender: UIButton, data: String) {
+
+        sender.isSelected.toggle()
+
+        if sender.isSelected {
+            if !FBAuth.shared.isSignedIn {
+                navigationController?.pushViewController(SignInViewController(), animated: true)
+
+                if FBAuth.shared.isSignedIn {
+                    sender.isSelected.toggle()
+                }
+            } else {
+                FBFireStore.shared.setData(with: data, for: FBAuth.shared.currentUserId)
+            }
+
+        } else {
+            FBFireStore.shared.deleteData(with: data, for: FBAuth.shared.currentUserId)
+        }
+    }
+}
+
 

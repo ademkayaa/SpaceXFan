@@ -36,6 +36,16 @@ final class AllSpaceXRockets: UIViewController {
         configureNavigationBar(with: "All SpaceX Rockets")
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: userLoginButton)
         loadTableViewCells()
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refreshFavorites),
+                                               name: Notification.Name("UserLoggedIn"),
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refreshSignInButton),
+                                               name: Notification.Name("refreshSignInButton"),
+                                               object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -65,10 +75,23 @@ final class AllSpaceXRockets: UIViewController {
                 switch(result) {
                 case.success(_):
                     print("signOut success")
+                    NotificationCenter.default.post(name: Notification.Name("UserLoggedIn"), object: nil)
+                    NotificationCenter.default.post(name: Notification.Name("FavoriteTab"), object: nil)
                 case.failure(_):
                     print("signOut fail")
                 }
             }
+        }
+    }
+
+    @objc func refreshFavorites() {
+        tableView.reloadData()
+        print("reload")
+    }
+
+    @objc func refreshSignInButton() {
+        if !userLoginButton.isSelected {
+            userLoginButton.isSelected.toggle()
         }
     }
 }
@@ -84,7 +107,18 @@ extension AllSpaceXRockets: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         cell.delegate = self
-        cell.configure(with: AllSpaceXRocketsViewModel.shared.getItem(at: indexPath.row), isFavoriteHidden: false)
+
+        let item = AllSpaceXRocketsViewModel.shared.getItem(at: indexPath.row)
+
+        if let count = FBFireStore.shared.favorite?.filter({ $0 == item.name }).count {
+            let isFavorite = count >= 1 ? true : false
+
+            cell.favorite.isSelected = isFavorite
+        } else {
+            cell.favorite.isSelected = false
+        }
+
+        cell.configure(with: item, isFavoriteHidden: false)
         cell.selectionStyle = .none
         return cell
     }
@@ -92,7 +126,14 @@ extension AllSpaceXRockets: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = DetailsView()
 
-        vc.rocket = AllSpaceXRocketsViewModel.shared.getItem(at: indexPath.row)
+        let item = AllSpaceXRocketsViewModel.shared.getItem(at: indexPath.row)
+        vc.rocket = item
+
+        if let count = FBFireStore.shared.favorite?.filter({ $0 == item.name }).count {
+            let isFavorite = count >= 1 ? true : false
+            vc.isFavorite = isFavorite
+        }
+
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -104,10 +145,8 @@ extension AllSpaceXRockets: CardUIViewDelegate {
         sender.isSelected.toggle()
 
         if sender.isSelected {
-
             if !FBAuth.shared.isSignedIn {
                 navigationController?.pushViewController(SignInViewController(), animated: true)
-                sender.isSelected.toggle()
             } else {
                 FBFireStore.shared.setData(with: data, for: FBAuth.shared.currentUserId)
             }

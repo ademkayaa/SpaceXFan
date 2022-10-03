@@ -15,10 +15,10 @@ class FBFireStore {
 
     static let shared = FBFireStore()
     private var db = Firestore.firestore()
-    var favorite: FavoriteRocket?
+    var favorite: [String]?
 
     func geData(with userId: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        print("User yilmaz  \(userId)")
+        print("User adem  \(userId)")
 
         let docRef = db.collection("Favorite").document(userId)
 
@@ -26,12 +26,9 @@ class FBFireStore {
             if let document = document, document.exists {
                 guard let dataDescription = document.data() else { return }
 
-                let initial: FavoriteRocket? = JsonUtils.shared.decodeFrom(dictinary: dataDescription)
+                self?.favorite = dataDescription["names"] as? [String]
 
-                if let initial = initial {
-                    self?.favorite = initial
-                }
-
+                print(self?.favorite as Any)
                 print("Document data: \(dataDescription)")
                 completion(.success(true))
             } else {
@@ -43,17 +40,25 @@ class FBFireStore {
 
     func setData(with data: String, for userId: String) {
         let document = db.collection("Favorite").document(userId)
-
+        favorite?.append(data)
         document.updateData([
             "names": FieldValue.arrayUnion([data])
         ])
+
+        NotificationCenter.default.post(name: Notification.Name("UserLoggedIn"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name("FavoriteTab"), object: nil)
     }
 
     func deleteData(with data: String, for userId: String) {
         let document = db.collection("Favorite").document(userId)
 
+        favorite = favorite?.filter {$0 != data}
+
         document.updateData([
             "names": FieldValue.arrayRemove([data])
         ])
+
+        NotificationCenter.default.post(name: Notification.Name("UserLoggedIn"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name("FavoriteTab"), object: nil)
     }
 }
