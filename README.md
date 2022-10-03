@@ -1,5 +1,15 @@
 # SpaceXFan
 
+#############--------------- Running Project ------------------------############
+
+1- Clone or Download the Project
+   - Firstly run "pod install" command 
+   - Build from XCode
+
+
+#############--------------- About Project------------------------############
+
+
 - This Project has three tabs.
   - All SpaceX rockets
   - Favorite rockets
