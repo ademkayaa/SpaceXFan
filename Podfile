@@ -7,7 +7,7 @@ target 'SpaceXFan' do
 
   # Pods for SpaceXFan
   pod 'ImageSlideshow', '~> 1.9.0'
-  pod "ImageSlideshow/Kingfisher"
+  pod "ImageSlideshow/Alamofire"
   pod 'Alamofire'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'FirebaseAuth'

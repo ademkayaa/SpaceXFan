@@ -25,11 +25,11 @@ class DetailHeaderView: UIView {
     }
 
     func configure(with urls: [String]) {
-        var imageSource = [KingfisherSource]()
+        var imageSource = [AlamofireSource]()
 
         if !urls.isEmpty {
             for url in urls {
-                imageSource.append(KingfisherSource(urlString: url)!)
+                imageSource.append(AlamofireSource(urlString: url)!)
                 print("Urls \(url)")
             }
             slideshow.setImageInputs(imageSource)

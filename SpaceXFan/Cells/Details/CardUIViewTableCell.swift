@@ -99,7 +99,7 @@ class CardUIViewTableCell: UITableViewCell {
 
         if !rocket.imagesUrl.isEmpty {
             let url = URL(string: rocket.imagesUrl[0])
-            posterImage.kf.setImage(with: url)
+            posterImage.af.setImage(withURL: url!)
         } else {
             posterImage.image = UIImage(named: "Rocket")
         }
